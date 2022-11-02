@@ -1,10 +1,10 @@
 # Aleph Zero Ink! Challenge
 
 ### List of Challenges
-1. BloXOR: WIP
-   - Contracts: link
-   - Badges to be collected: A, B, C
-2. Challenge 2
+1. HardXORe: WIP
+   - Contracts: `contracts\hardxore` deployed at `5GErKuHmZ8ytupuZb78AJbHY9yoaDnKLdLUYKchYukhrsjVj`
+   - Badges to be collected: `WARMUP`, `XOR-0`, `XOR-1`, `XOR-2`, `XOR-3`
+   - To check if an account `acc` has been awarded badge `b` call the method `has_badge(acc, b)`
 
 
 ### What is this challenge about?
@@ -22,11 +22,10 @@ We regularly publish new parts of the challenge. Each part comes with one or a f
 ### How do I take part in the challenge?
 Just pick the current or any previous challenge part and start hacking! The goal is to get badges, it's up to you how to achieve that! There are no deadlines for any of the challenges.
 
-
 ### What are the rules of the challenge?
-
 1. Don't spoil the fun for others: once you complete a part of the challenge and get a badge, don't publish any hints on how did you do that.
-2. Don't spam the chain: the solution will never require you to send excessive numbers of transactions, or overload the public endpoints in any other way. 
+2. Related to the above: don't create pull requests to this repository that would give any hints to other challengers.
+3. Don't spam the chain: the solution will never require you to send excessive numbers of transactions, or overload the public endpoints in any other way. 
 
 ### Are there any rewards for getting badges?
 In general no, but there might occasionally be special challenges with rewards. Some of the challenges are also used for recruitment purposes for developer positions on Aleph Zero. 
@@ -36,7 +35,7 @@ There is also (will be, WIP) a public dashboard listing badge holders -- so ther
 ### Technical hints
 Here are some resources that might help you to get started, depending on which language do you prefer:
 
- - Python: WIP
- - JavaScript: WIP
- - Rust: WIP
+ - Python: You can use the [py-substrate-interface](https://github.com/polkascan/py-substrate-interface) library. It can be installed via `pip install substrate-interface`. See a python example in `examples/python/example.py` for interacting with the `hardxore` contract from the first challenge.
+ - JavaScript: You can use the polkadot.js library. Examples: WIP.
+ - Rust: You can use the subxt library. Examples: WIP.
 
