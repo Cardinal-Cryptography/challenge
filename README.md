@@ -2,9 +2,9 @@
 
 ### List of Challenges
 1. HardXORe: WIP
-   - Contracts: `contracts\hardxore` deployed at `5GErKuHmZ8ytupuZb78AJbHY9yoaDnKLdLUYKchYukhrsjVj`
-   - Badges to be collected: `WARMUP`, `XOR-0`, `XOR-1`, `XOR-2`, `XOR-3`
-   - To check if an account `acc` has been awarded badge `b` call the method `has_badge(acc, b)`
+   - Contracts: `contracts/hardxore` deployed at `5GErKuHmZ8ytupuZb78AJbHY9yoaDnKLdLUYKchYukhrsjVj`. Metadata is available in `metadata/hardxore.json`.
+   - Badges to be collected: `WARMUP`, `XOR-0`, `XOR-1`, `XOR-2`, `XOR-3`.
+   - To check if an account `acc` has been awarded badge `b` call the method `has_badge(acc, b)`.
 
 
 ### What is this challenge about?
