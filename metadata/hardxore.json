@@ -1,0 +1,779 @@
+{
+  "source": {
+    "hash": "0x82c3db468bb633474ca4b03584831e9aa3db00578646051a101fc023d2044edb",
+    "language": "ink! 3.3.1",
+    "compiler": "rustc 1.63.0-nightly"
+  },
+  "contract": {
+    "name": "hardxore",
+    "version": "0.1.0",
+    "authors": [
+      "Cardinal Cryptography"
+    ],
+    "license": "Apache 2.0"
+  },
+  "V3": {
+    "spec": {
+      "constructors": [
+        {
+          "args": [],
+          "docs": [],
+          "label": "new",
+          "payable": false,
+          "selector": "0x9bae9d5e"
+        }
+      ],
+      "docs": [],
+      "events": [
+        {
+          "args": [
+            {
+              "docs": [],
+              "indexed": false,
+              "label": "acc",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 7
+              }
+            },
+            {
+              "docs": [],
+              "indexed": false,
+              "label": "badge",
+              "type": {
+                "displayName": [
+                  "Badge"
+                ],
+                "type": 8
+              }
+            }
+          ],
+          "docs": [],
+          "label": "BadgeAwarded"
+        },
+        {
+          "args": [
+            {
+              "docs": [],
+              "indexed": false,
+              "label": "num",
+              "type": {
+                "displayName": [
+                  "BlockNumber"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "docs": [],
+              "indexed": false,
+              "label": "randomness",
+              "type": {
+                "displayName": [
+                  "Hash256"
+                ],
+                "type": 3
+              }
+            }
+          ],
+          "docs": [],
+          "label": "RandomnessRegistered"
+        }
+      ],
+      "messages": [
+        {
+          "args": [
+            {
+              "label": "acc",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 7
+              }
+            },
+            {
+              "label": "badge",
+              "type": {
+                "displayName": [
+                  "String"
+                ],
+                "type": 8
+              }
+            }
+          ],
+          "docs": [],
+          "label": "has_badge",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Option"
+            ],
+            "type": 11
+          },
+          "selector": "0xfddcef2b"
+        },
+        {
+          "args": [],
+          "docs": [],
+          "label": "just_give_me_a_badge",
+          "mutates": true,
+          "payable": true,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 12
+          },
+          "selector": "0x0d9d5775"
+        },
+        {
+          "args": [
+            {
+              "label": "solution",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 15
+              }
+            }
+          ],
+          "docs": [],
+          "label": "attempt_xor_0",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 12
+          },
+          "selector": "0xf6819437"
+        },
+        {
+          "args": [
+            {
+              "label": "solution",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 15
+              }
+            }
+          ],
+          "docs": [],
+          "label": "attempt_xor_1",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 12
+          },
+          "selector": "0xf3695126"
+        },
+        {
+          "args": [
+            {
+              "label": "solution",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 15
+              }
+            }
+          ],
+          "docs": [],
+          "label": "attempt_xor_2",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 12
+          },
+          "selector": "0x18628b11"
+        },
+        {
+          "args": [
+            {
+              "label": "solution",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 15
+              }
+            }
+          ],
+          "docs": [],
+          "label": "attempt_xor_3",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 12
+          },
+          "selector": "0xb7565f19"
+        },
+        {
+          "args": [
+            {
+              "label": "num",
+              "type": {
+                "displayName": [
+                  "BlockNumber"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [],
+          "label": "get_randomness",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 16
+          },
+          "selector": "0x194a46c8"
+        },
+        {
+          "args": [],
+          "docs": [],
+          "label": "register_randomness",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 17
+          },
+          "selector": "0x0b819741"
+        }
+      ]
+    },
+    "storage": {
+      "struct": {
+        "fields": [
+          {
+            "layout": {
+              "array": {
+                "cellsPerElem": 1,
+                "layout": {
+                  "cell": {
+                    "key": "0x2000000000000000000000000000000000000000000000000000000000000000",
+                    "ty": 0
+                  }
+                },
+                "len": 32,
+                "offset": "0x0000000000000000000000000000000000000000000000000000000000000000"
+              }
+            },
+            "name": "seed"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x2000000000000000000000000000000000000000000000000000000000000000",
+                "ty": 1
+              }
+            },
+            "name": "randomness"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x2100000000000000000000000000000000000000000000000000000000000000",
+                "ty": 5
+              }
+            },
+            "name": "badges"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x2200000000000000000000000000000000000000000000000000000000000000",
+                "ty": 9
+              }
+            },
+            "name": "used_solutions"
+          }
+        ]
+      }
+    },
+    "types": [
+      {
+        "id": 0,
+        "type": {
+          "def": {
+            "primitive": "u8"
+          }
+        }
+      },
+      {
+        "id": 1,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "offset_key",
+                  "type": 4,
+                  "typeName": "Key"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 2
+            },
+            {
+              "name": "V",
+              "type": 3
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "lazy",
+            "mapping",
+            "Mapping"
+          ]
+        }
+      },
+      {
+        "id": 2,
+        "type": {
+          "def": {
+            "primitive": "u32"
+          }
+        }
+      },
+      {
+        "id": 3,
+        "type": {
+          "def": {
+            "array": {
+              "len": 32,
+              "type": 0
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 3,
+                  "typeName": "[u8; 32]"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_primitives",
+            "Key"
+          ]
+        }
+      },
+      {
+        "id": 5,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "offset_key",
+                  "type": 4,
+                  "typeName": "Key"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 6
+            },
+            {
+              "name": "V",
+              "type": 2
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "lazy",
+            "mapping",
+            "Mapping"
+          ]
+        }
+      },
+      {
+        "id": 6,
+        "type": {
+          "def": {
+            "tuple": [
+              7,
+              8
+            ]
+          }
+        }
+      },
+      {
+        "id": 7,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 3,
+                  "typeName": "[u8; 32]"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_env",
+            "types",
+            "AccountId"
+          ]
+        }
+      },
+      {
+        "id": 8,
+        "type": {
+          "def": {
+            "primitive": "str"
+          }
+        }
+      },
+      {
+        "id": 9,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "name": "offset_key",
+                  "type": 4,
+                  "typeName": "Key"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "K",
+              "type": 3
+            },
+            {
+              "name": "V",
+              "type": 10
+            }
+          ],
+          "path": [
+            "ink_storage",
+            "lazy",
+            "mapping",
+            "Mapping"
+          ]
+        }
+      },
+      {
+        "id": 10,
+        "type": {
+          "def": {
+            "tuple": []
+          }
+        }
+      },
+      {
+        "id": 11,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "index": 0,
+                  "name": "None"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 2
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Some"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 2
+            }
+          ],
+          "path": [
+            "Option"
+          ]
+        }
+      },
+      {
+        "id": 12,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 13
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 14
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 13
+            },
+            {
+              "name": "E",
+              "type": 14
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
+        "id": 13,
+        "type": {
+          "def": {
+            "tuple": [
+              8,
+              2
+            ]
+          }
+        }
+      },
+      {
+        "id": 14,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 2,
+                      "typeName": "BlockNumber"
+                    }
+                  ],
+                  "index": 0,
+                  "name": "BlockAlreadyHasRandomness"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 2,
+                      "typeName": "BlockNumber"
+                    }
+                  ],
+                  "index": 1,
+                  "name": "NoRandomnessRegistered"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 2,
+                      "typeName": "BlockNumber"
+                    }
+                  ],
+                  "index": 2,
+                  "name": "BadgeAlreadyHeld"
+                },
+                {
+                  "index": 3,
+                  "name": "SolutionHasBeenUsed"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 2,
+                      "typeName": "BlockNumber"
+                    }
+                  ],
+                  "index": 4,
+                  "name": "BlockTooFarInThePast"
+                },
+                {
+                  "index": 5,
+                  "name": "CloseButNoCigar"
+                },
+                {
+                  "index": 6,
+                  "name": "SolutionCannotBeEmpty"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 2,
+                      "typeName": "BlockNumber"
+                    }
+                  ],
+                  "index": 7,
+                  "name": "DuplicateNumber"
+                }
+              ]
+            }
+          },
+          "path": [
+            "hardxore",
+            "hardxore",
+            "Error"
+          ]
+        }
+      },
+      {
+        "id": 15,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 2
+            }
+          }
+        }
+      },
+      {
+        "id": 16,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 3
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 14
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 3
+            },
+            {
+              "name": "E",
+              "type": 14
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
+        "id": 17,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 18
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 14
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 18
+            },
+            {
+              "name": "E",
+              "type": 14
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
+        "id": 18,
+        "type": {
+          "def": {
+            "tuple": [
+              2,
+              3
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

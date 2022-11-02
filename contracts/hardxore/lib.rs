@@ -39,6 +39,18 @@ pub mod hardxore {
         DuplicateNumber(BlockNumber),
     }
 
+    #[ink(event)]
+    pub struct BadgeAwarded {
+        acc: AccountId,
+        badge: Badge,
+    }
+
+    #[ink(event)]
+    pub struct RandomnessRegistered {
+        num: BlockNumber,
+        randomness: Hash256,
+    }
+
     pub type Result<T> = core::result::Result<T, Error>;
     // Hash256 is simply [u8; 32]
     pub type Hash256 = <Sha2x256 as HashOutput>::Type;
@@ -64,7 +76,12 @@ pub mod hardxore {
                 Some(num) => Err(Error::BadgeAlreadyHeld(num)),
                 None => {
                     let current_num = Self::env().block_number();
-                    self.badges.insert((caller, String::from(badge)), &current_num);
+                    self.badges
+                        .insert((caller, String::from(badge)), &current_num);
+                    Self::env().emit_event(BadgeAwarded {
+                        acc: caller,
+                        badge: String::from(badge),
+                    });
                     Ok((String::from(badge), current_num))
                 }
             }
@@ -76,7 +93,7 @@ pub mod hardxore {
             self.badges.get((acc, badge))
         }
 
-        #[ink(message)]
+        #[ink(message, payable)]
         pub fn just_give_me_a_badge(&mut self) -> Result<(Badge, BlockNumber)> {
             if Self::env().transferred_value() == 0x1c90 {
                 return self.award_badge("WARMUP");
@@ -92,7 +109,7 @@ pub mod hardxore {
         /// 4) At every number some randomness was registered
         /// Outputs a `Hash256` being the bitwise XOR of the randomnesses corresponding to block numbers.
         fn prevalidate_and_xor(&self, solution: &[BlockNumber]) -> Result<Hash256> {
-            if solution.len() == 0 {
+            if solution.is_empty() {
                 return Err(Error::SolutionCannotBeEmpty);
             }
             let current_num = Self::env().block_number();
@@ -125,9 +142,9 @@ pub mod hardxore {
             Ok(xored_hashes)
         }
 
-
         fn save_solution_as_used(&mut self, solution: &[BlockNumber]) {
-            self.used_solutions.insert(Self::hash_solution(solution), &());
+            self.used_solutions
+                .insert(Self::hash_solution(solution), &());
         }
 
         #[ink(message)]
@@ -136,7 +153,7 @@ pub mod hardxore {
             solution: Vec<BlockNumber>,
         ) -> Result<(Badge, BlockNumber)> {
             let mut solution = solution;
-            solution.sort();
+            solution.sort_unstable();
             let xored_hashes = self.prevalidate_and_xor(&solution)?;
             if xored_hashes[0] == 0 {
                 self.save_solution_as_used(&solution);
@@ -151,7 +168,7 @@ pub mod hardxore {
             solution: Vec<BlockNumber>,
         ) -> Result<(Badge, BlockNumber)> {
             let mut solution = solution;
-            solution.sort();
+            solution.sort_unstable();
             let xored_hashes = self.prevalidate_and_xor(&solution)?;
             if xored_hashes[0] == 0 && xored_hashes[1] == 0 && xored_hashes[2] == 0 {
                 self.save_solution_as_used(&solution);
@@ -179,7 +196,7 @@ pub mod hardxore {
             solution: Vec<BlockNumber>,
         ) -> Result<(Badge, BlockNumber)> {
             let mut solution = solution;
-            solution.sort();
+            solution.sort_unstable();
             let xored_hashes = self.prevalidate_and_xor(&solution)?;
             if xored_hashes == [0u8; 32] {
                 self.save_solution_as_used(&solution);
@@ -198,7 +215,7 @@ pub mod hardxore {
         }
 
         #[ink(message)]
-        pub fn get_randomness(&mut self, num: BlockNumber) -> Result<Hash256> {
+        pub fn get_randomness(&self, num: BlockNumber) -> Result<Hash256> {
             match self.randomness.get(num) {
                 Some(randomness) => Ok(randomness),
                 None => Err(Error::NoRandomnessRegistered(num)),
@@ -214,6 +231,10 @@ pub mod hardxore {
             let caller = Self::env().caller();
             let randomness = self.generate_fresh_randomness(caller, current_num);
             self.randomness.insert(current_num, &randomness);
+            Self::env().emit_event(RandomnessRegistered {
+                num: current_num,
+                randomness,
+            });
             Ok((current_num, randomness))
         }
     }
