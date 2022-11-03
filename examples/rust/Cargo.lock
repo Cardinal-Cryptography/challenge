@@ -1714,6 +1714,7 @@ dependencies = [
 name = "rust-example"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "clap",
  "parity-scale-codec",
  "subxt",
