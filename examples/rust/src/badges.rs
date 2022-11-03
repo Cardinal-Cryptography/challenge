@@ -39,6 +39,6 @@ async fn has_badge(
 pub async fn print_badges(account: &AccountId32, client: &OnlineClient<AlephConfig>) {
     for badge in BADGES {
         let result = has_badge(account, badge, client).await.unwrap();
-        println!("Checking if {} has badge {} -- {}", account, badge, result)
+        println!("Checking if {account} has badge {badge} -- {result}")
     }
 }

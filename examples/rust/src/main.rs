@@ -30,7 +30,10 @@ fn get_signer() -> AnyResult<PairSigner<AlephConfig, Pair>> {
     let seed = fs::read_to_string(seed_path)?;
     let pair = Pair::from_string(&seed, None)
         .map_err(|e| anyhow!("Cannot create signer from the seed: {:?}", e))?;
-    Ok(PairSigner::new(pair))
+    let signer = PairSigner::new(pair);
+    println!("Keypair read -- AccountId = {}", signer.account_id());
+
+    Ok(signer)
 }
 
 fn contract_account() -> AccountId32 {
