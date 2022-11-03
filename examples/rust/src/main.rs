@@ -1,3 +1,4 @@
+mod actions;
 mod badges;
 
 use std::{env, fs};
@@ -20,7 +21,8 @@ const HARDXORE_ADDRESS: &'static str = "5GErKuHmZ8ytupuZb78AJbHY9yoaDnKLdLUYKchY
 const BADGES: [&'static str; 5] = ["WARMUP", "XOR-0", "XOR-1", "XOR-2", "XOR-3"];
 
 const HAS_BADGE_SELECTOR: [u8; 4] = [0xfd, 0xdc, 0xef, 0x2b];
-const READ_GAS_LIMIT: u64 = 100_000_000_000;
+const REGISTER_RANDOMNESS_SELECTOR: [u8; 4] = [0x0b, 0x81, 0x97, 0x41];
+const GAS_LIMIT: u64 = 100_000_000_000;
 
 /// We should be quite compatible to Polkadot.
 type AlephConfig = PolkadotConfig;
@@ -31,7 +33,7 @@ fn get_signer() -> AnyResult<PairSigner<AlephConfig, Pair>> {
     let pair = Pair::from_string(&seed, None)
         .map_err(|e| anyhow!("Cannot create signer from the seed: {:?}", e))?;
     let signer = PairSigner::new(pair);
-    println!("Keypair read -- AccountId = {}", signer.account_id());
+    println!("Keypair read -- AccountId = {}\n", signer.account_id());
 
     Ok(signer)
 }
@@ -45,6 +47,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let signer = get_signer()?;
     let client = OnlineClient::<AlephConfig>::from_url(TESTNET_WS).await?;
 
+    actions::register_randomness(&signer, &client).await;
     badges::print_badges(signer.account_id(), &client).await;
     Ok(())
 }

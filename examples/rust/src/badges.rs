@@ -4,7 +4,7 @@ use pallet_contracts_rpc::CallRequest;
 use sp_rpc::number::NumberOrHex;
 use subxt::{ext::sp_runtime::AccountId32, rpc::RpcParams, OnlineClient};
 
-use crate::{contract_account, AlephConfig, BADGES, HAS_BADGE_SELECTOR, READ_GAS_LIMIT};
+use crate::{contract_account, AlephConfig, BADGES, GAS_LIMIT, HAS_BADGE_SELECTOR};
 
 async fn has_badge(
     account: &AccountId32,
@@ -19,7 +19,7 @@ async fn has_badge(
         origin: account.clone(),
         dest: contract_account(),
         value: NumberOrHex::Number(0),
-        gas_limit: NumberOrHex::Number(READ_GAS_LIMIT),
+        gas_limit: NumberOrHex::Number(GAS_LIMIT),
         storage_deposit_limit: None,
         input_data: message_with_params.into(),
     };
