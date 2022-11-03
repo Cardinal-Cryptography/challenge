@@ -1,11 +1,11 @@
-use subxt::{ext::sp_runtime::MultiAddress, tx::Signer, OnlineClient};
+use subxt::{ext::sp_runtime::MultiAddress, tx::Signer, Config, OnlineClient};
 
 use crate::{aleph, contract_account, AlephConfig, GAS_LIMIT, REGISTER_RANDOMNESS_SELECTOR};
 
 pub async fn register_randomness<S: Signer<AlephConfig> + Send + Sync>(
     signer: &S,
     client: &OnlineClient<AlephConfig>,
-) {
+) -> <AlephConfig as Config>::Hash {
     let tx = aleph::tx().contracts().call(
         MultiAddress::Id(contract_account()),
         0,
@@ -25,8 +25,9 @@ pub async fn register_randomness<S: Signer<AlephConfig> + Send + Sync>(
         .await
         .unwrap();
 
-    println!(
-        "Randomness registered for block with hash {:?}\n",
-        evs.block_hash()
-    );
+    let block_hash = evs.block_hash();
+
+    println!("Randomness registered for block with hash {block_hash:?}\n");
+
+    block_hash
 }

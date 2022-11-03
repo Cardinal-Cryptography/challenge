@@ -11,7 +11,7 @@ use subxt::{
         sp_runtime::AccountId32,
     },
     tx::PairSigner,
-    OnlineClient, PolkadotConfig,
+    Config, OnlineClient, PolkadotConfig,
 };
 
 #[subxt::subxt(runtime_metadata_url = "wss://ws.test.azero.dev:443")]
@@ -23,10 +23,14 @@ const BADGES: [&str; 5] = ["WARMUP", "XOR-0", "XOR-1", "XOR-2", "XOR-3"];
 
 const HAS_BADGE_SELECTOR: [u8; 4] = [0xfd, 0xdc, 0xef, 0x2b];
 const REGISTER_RANDOMNESS_SELECTOR: [u8; 4] = [0x0b, 0x81, 0x97, 0x41];
+const GET_RANDOMNESS_SELECTOR: [u8; 4] = [0x19, 0x4a, 0x46, 0xc8];
 const GAS_LIMIT: u64 = 100_000_000_000;
 
 /// We should be quite compatible to Polkadot.
 type AlephConfig = PolkadotConfig;
+
+type Hash = <AlephConfig as Config>::Hash;
+type BlockNumber = <AlephConfig as Config>::BlockNumber;
 
 fn get_signer() -> AnyResult<PairSigner<AlephConfig, Pair>> {
     let seed_path = env::current_dir()?.join("seed.phrase");
@@ -48,7 +52,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let signer = get_signer()?;
     let client = OnlineClient::<AlephConfig>::from_url(TESTNET_WS).await?;
 
-    actions::register_randomness(&signer, &client).await;
+    let block_hash = actions::register_randomness(&signer, &client).await;
+    state::get_randomness(block_hash, signer.account_id(), &client).await;
     state::print_badges(signer.account_id(), &client).await;
     Ok(())
 }
