@@ -24,6 +24,7 @@ const BADGES: [&str; 5] = ["WARMUP", "XOR-0", "XOR-1", "XOR-2", "XOR-3"];
 const HAS_BADGE_SELECTOR: [u8; 4] = [0xfd, 0xdc, 0xef, 0x2b];
 const REGISTER_RANDOMNESS_SELECTOR: [u8; 4] = [0x0b, 0x81, 0x97, 0x41];
 const GET_RANDOMNESS_SELECTOR: [u8; 4] = [0x19, 0x4a, 0x46, 0xc8];
+const ATTEMPT_XOR_3_SELECTOR: [u8; 4] = [0xb7, 0x56, 0x5f, 0x19];
 const GAS_LIMIT: u64 = 100_000_000_000;
 
 /// We should be quite compatible to Polkadot.
@@ -54,6 +55,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let block_hash = actions::register_randomness(&signer, &client).await;
     state::get_randomness(block_hash, signer.account_id(), &client).await;
+
+    // Don't expect a success here -- the above solution is obviously wrong for `XOR-3`
+    actions::attempt_xor_3(&signer, &client).await;
+
     state::print_badges(signer.account_id(), &client).await;
+
     Ok(())
 }
