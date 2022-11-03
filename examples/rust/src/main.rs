@@ -1,5 +1,6 @@
 mod actions;
-mod badges;
+mod rpc;
+mod state;
 
 use std::{env, fs};
 
@@ -48,6 +49,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = OnlineClient::<AlephConfig>::from_url(TESTNET_WS).await?;
 
     actions::register_randomness(&signer, &client).await;
-    badges::print_badges(signer.account_id(), &client).await;
+    state::print_badges(signer.account_id(), &client).await;
     Ok(())
 }
