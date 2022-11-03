@@ -45,17 +45,6 @@ def send_attempt_xor_3_tx(contract, keypair):
     print(result.error_message, '\n\n')
 
 
-def just_give_me_a_badge(contract, keypair):
-    print(f"Simulating just_give_me_a_badge on ")
-    prediction = contract.read(keypair, 'just_give_me_a_badge', args = {}, value = 7312)
-    print(f"Result of simulation: {prediction}")
-    predicted_gas = prediction.gas_required
-    print(f"Sending actual transaction...")
-    result = contract.exec(keypair, 'just_give_me_a_badge', args = {}, gas_limit = predicted_gas*2, value = 7312)
-    # Don't expect a success here -- the above solution is obviously wrong for `XOR-3`
-    print(result.error_message, '\n\n')
-
-
 def example_interaction_hardxore():
     try:
         with open(os.path.join(os.path.dirname(__file__), 'seed.phrase'), 'r') as file:
@@ -72,7 +61,6 @@ def example_interaction_hardxore():
 
     contract = ContractInstance.create_from_address(contract_address=HARDXORE_ADDRESS, metadata_file=metadata_file, substrate=aleph_testnet)
 
-    just_give_me_a_badge(contract, keypair)
     send_register_randomness_tx(contract, keypair, aleph_testnet)
     send_attempt_xor_3_tx(contract, keypair)
     for badge in ["WARMUP", "XOR-0", "XOR-1", "XOR-2", "XOR-3"]:
