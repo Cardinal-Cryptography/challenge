@@ -9,5 +9,6 @@ publish = false
 anyhow = "1.0.66"
 clap = { version = "4.0", features = ["derive"] }
 codec = { package = "parity-scale-codec", version = "3.0.0", default-features = false, features = ["derive", "full", "bit-vec"] }
-subxt = "0.24.0"
+# Have a recent subxt to gain `runtime_metadata_url`. We freeze `rev` to have some reproducibility.
+subxt = { git = "https://github.com/paritytech/subxt", rev = "33a9ec91afd16c459871e24ae18576f7afbb87c1" }
 tokio = { version = "1.18", features = ["rt-multi-thread", "macros", "time"] }
