@@ -21,6 +21,7 @@ const TESTNET_WS: &str = "wss://ws.test.azero.dev:443";
 const HARDXORE_ADDRESS: &str = "5GErKuHmZ8ytupuZb78AJbHY9yoaDnKLdLUYKchYukhrsjVj";
 const BADGES: [&str; 5] = ["WARMUP", "XOR-0", "XOR-1", "XOR-2", "XOR-3"];
 
+// These selectors come from ../../metadata/hardxore.json
 const HAS_BADGE_SELECTOR: [u8; 4] = [0xfd, 0xdc, 0xef, 0x2b];
 const REGISTER_RANDOMNESS_SELECTOR: [u8; 4] = [0x0b, 0x81, 0x97, 0x41];
 const GET_RANDOMNESS_SELECTOR: [u8; 4] = [0x19, 0x4a, 0x46, 0xc8];
