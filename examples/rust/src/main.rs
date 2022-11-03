@@ -17,9 +17,9 @@ use subxt::{
 #[subxt::subxt(runtime_metadata_url = "wss://ws.test.azero.dev:443")]
 pub mod aleph {}
 
-const TESTNET_WS: &'static str = "wss://ws.test.azero.dev:443";
-const HARDXORE_ADDRESS: &'static str = "5GErKuHmZ8ytupuZb78AJbHY9yoaDnKLdLUYKchYukhrsjVj";
-const BADGES: [&'static str; 5] = ["WARMUP", "XOR-0", "XOR-1", "XOR-2", "XOR-3"];
+const TESTNET_WS: &str = "wss://ws.test.azero.dev:443";
+const HARDXORE_ADDRESS: &str = "5GErKuHmZ8ytupuZb78AJbHY9yoaDnKLdLUYKchYukhrsjVj";
+const BADGES: [&str; 5] = ["WARMUP", "XOR-0", "XOR-1", "XOR-2", "XOR-3"];
 
 const HAS_BADGE_SELECTOR: [u8; 4] = [0xfd, 0xdc, 0xef, 0x2b];
 const REGISTER_RANDOMNESS_SELECTOR: [u8; 4] = [0x0b, 0x81, 0x97, 0x41];

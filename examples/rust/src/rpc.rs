@@ -24,7 +24,7 @@ pub async fn rpc_call(
 
     let result: ContractExecResult<u128> =
         client.rpc().request("contracts_call", rpc_params).await?;
-    Ok(result
+    result
         .result
-        .map_err(|e| subxt::Error::Other(format!("RPC call failed with {:?}", e)))?)
+        .map_err(|e| subxt::Error::Other(format!("RPC call failed with {:?}", e)))
 }
