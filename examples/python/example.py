@@ -18,8 +18,10 @@ def send_register_randomness_tx(contract, keypair, chain):
     print(f"Result of simulation: {prediction}")
     predicted_gas = prediction.gas_required
     print(f"Simulation of register_randomness cost {predicted_gas} gas.")
+    predicted_gas['ref_time'] *=2
+    predicted_gas['proof_size'] *=2
     print(f"Sending actual transaction...")
-    result = contract.exec(keypair, 'register_randomness', args={}, gas_limit = predicted_gas*2)
+    result = contract.exec(keypair, 'register_randomness', args={}, gas_limit = predicted_gas)
     print(f"Events triggered: {result.contract_events}")
     number = chain.get_block_number(result.block_hash)
     print(f"Transaction landed in block {result.block_hash} ({number})")
@@ -39,8 +41,10 @@ def send_attempt_xor_3_tx(contract, keypair):
     prediction = contract.read(keypair, 'attempt_xor_3', args = {"solution":solution})
     print(f"Result of simulation: {prediction}")
     predicted_gas = prediction.gas_required
+    predicted_gas['ref_time'] *=2
+    predicted_gas['proof_size'] *=2
     print(f"Sending actual transaction...")
-    result = contract.exec(keypair, 'attempt_xor_3', args = {"solution": solution}, gas_limit = predicted_gas*2)
+    result = contract.exec(keypair, 'attempt_xor_3', args = {"solution": solution}, gas_limit = predicted_gas)
     # Don't expect a success here -- the above solution is obviously wrong for `XOR-3`
     print(result.error_message, '\n\n')
 
@@ -56,7 +60,11 @@ def example_interaction_hardxore():
     account_id = keypair.ss58_address
     # Make sure there is TZERO on this account -- otherwise sending transactions will fail
     print(f"Keypair read -- AccountId = {account_id}")
-    aleph_testnet = SubstrateInterface(url=TESTNET_WS, ss58_format=42)
+    aleph_testnet = SubstrateInterface(url=TESTNET_WS, ss58_format=42,type_registry={
+            "types": {
+                "ContractExecResult": "ContractExecResultTo269"
+            }
+        })
     metadata_file = os.path.join(os.path.dirname(__file__), '../../metadata/hardxore.json')
 
     contract = ContractInstance.create_from_address(contract_address=HARDXORE_ADDRESS, metadata_file=metadata_file, substrate=aleph_testnet)
